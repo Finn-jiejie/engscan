@@ -69,39 +69,62 @@
 5. 单词卡上的「＋」= 收藏进生词本
 6. 生词本支持 Leitner 间隔复习（1/2/4/8/16 天）和导出 CSV（Anki 可用）
 
-## 四、开源化（GitHub Pages）
+## 四、发布到 GitHub Pages（手机在外面也能用）
 
-`public/` 目录是**纯静态**的，可以直接扔到任何静态托管上：
+`public/` 目录是**纯静态**的，可以直接托管到 GitHub Pages。
+
+一条命令搞定（脚本会自动建仓库、推源码、推静态站、开 Pages）：
 
 ```bash
-cd public
-# 推到 GitHub Pages / Cloudflare Pages / Vercel 任意一种
+bash tools/publish.sh <你的GitHub用户名> engscan
 ```
 
-部署到 HTTPS 之后：
-- 手机上就是**真正的 PWA**，可以正常安装、离线打开外壳
-- 只能走云端引擎（静态托管没有 OCR 后端）—— 这正是手机上要的模式
-- 页面会自动探测：连不上本地后端就切云端，不需要改配置
+**跑之前需要两个前置条件：**
+
+1. **代理已开启** —— 本机 GitHub 直连不通（实测 `github.com → 000`，`npmjs.org → 200`）
+2. **已登录 GitHub** —— 执行一次 `gh auth login`
+
+脚本内置安全闸：提交前会检查 `.env` 是否混入，发现就中止。
+
+发布后：
+
+- 源码仓库 `https://github.com/<用户名>/engscan`
+- **在线地址 `https://<用户名>.github.io/engscan/`** ← 手机打开这个
+
+部署到 HTTPS 之后，手机上就是**真正的 PWA**：可以正常安装到主屏、离线打开外壳。
+
+> 静态托管没有 OCR 后端，所以线上版**只能走云端引擎**。页面会自动探测并切换，不需要改任何配置。
+
+### 不想等/连不上 GitHub 时的替代
+
+- **单文件版 `engscan.html`** 直接发微信到手机，用手机浏览器打开，一样能用云端识别
+- 局域网内手机连电脑：双击 `start.bat`，用打印的局域网地址访问
 
 ## 五、结构
 
 ```
-start.bat            双击启动（Windows）
-server.js            Node 后端：静态托管 + /api/local-scan（本地 OCR）+ /api/scan（云端备用）
+start.bat             双击启动（Windows）
+engscan.html          单文件版（构建产物，零依赖双击即用）
+server.js             Node 后端：静态托管 + /api/local-scan（本地 OCR）+ /api/scan（云端备用）
 public/
-  index.html         页面
+  index.html          页面
   style.css
-  app.js             引擎调度、拍照压缩、渲染、朗读、云端配置
-  vocab.js           生词本数据层（IndexedDB + Leitner + CSV）
-  vocab-ui.js        生词本界面
-  sw.js              Service Worker（离线外壳）
+  app.js              引擎调度、拍照压缩、渲染、朗读、云端配置
+  vocab.js            生词本数据层（IndexedDB + Leitner + CSV）
+  vocab-ui.js         生词本界面
+  sw.js               Service Worker（离线外壳）
   manifest.webmanifest
-  icon-*.png         PWA 图标
+  icon-*.png          PWA 图标
 tools/
-  make-icons.py      重新生成图标
-  pwa-check.js       CDP 自动检测 PWA 能力
-  make-standalone.js 打包成单文件 HTML
-.env                 服务端配置（不进版本库）
+  publish.sh          一键发布到 GitHub Pages
+  make-icons.py       重新生成图标
+  make-standalone.js  打包成单文件 HTML
+  pwa-check.js        CDP 自动检测 PWA 能力
+  file-check.js       检测单文件版在 file:// 下的表现
+  cloud-e2e.js        云端直连端到端测试
+  local-translate-check.js  本地模式 + 翻译 + 生词本联动测试
+  mock-api.js         本地假 API（仅供测试）
+.env                  服务端配置（不进版本库）
 ```
 
 ## 六、已知限制
