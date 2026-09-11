@@ -1,0 +1,15 @@
+{
+  "name": "engscan",
+  "version": "0.1.0",
+  "private": true,
+  "description": "纸质书英语拍照点读：拍照识别例句与重点单词，并可朗读",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@gutenye/ocr-node": "^1.4.8"
+  }
+}

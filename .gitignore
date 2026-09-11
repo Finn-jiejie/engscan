@@ -1,0 +1,16 @@
+# 密钥与本地配置（永不提交）
+.env
+.env.local
+.env.*.local
+
+# 依赖
+node_modules/
+
+# 系统与日志
+.DS_Store
+Thumbs.db
+*.log
+
+# 编辑器
+.vscode/
+.idea/

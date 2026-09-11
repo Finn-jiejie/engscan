@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#f7f6f2">
+<meta name="description" content="拍纸质书页，识别重点单词与例句，点一下就能听。">
+<title>拍照点读 · 单文件版</title>
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAEO0lEQVR42u3dO24VMQCFYY9FyRYoEGUoKKlZAKwjBRItK6BFosg6YAHUlBSkjG6RLdBDFSlECfeRGY/H5/sXgBzu+X3s8Tym0hkvnj/7UzAsV7vrqafxTMKOZCkmoUeyDJPgI1mESfCRLMIk+EgWYRJ8JItQhR9bYu6MTYKP5Daowo/kNqjCj2QJqvAjWYIq/EiWoAo/kiWowo9kCarwI1mCKvxIlqAKP5IlqP6bkEw1+yO5BarwI1kCSyBYApn9kdoCGgAawOyP1BbQANAAZn+ktoAGgAYw+yO1BTQANAAQLYDlD1KXQRoAGgAgAEAAIIvJBhgaACAAQACAAAABgACejPzH/bq89AuH8/LsLLMBhB+H5GC4cwDBxzFtYA8Am2CzP1KXQ1X4kSyBJRAsgQACAAQACAAQoAx25A3cl5OadN8HhN8SCCgBzwQ7GMMhK4OaehsshN9bIVBcBQIIABAAIABAAIAAAAEAAgAEAAgAEAAgAEAAgAAAAQACAMUHMkpPj0Ve+IkRJ4DgI3YJJPxI/j6A8MMmGIgTwOwPDQAQACAAQAAg6fsA535OaAAgVQAtgPgGIAGKD2QUh2MgAGATDBAAIABAAIAAAAEAAoAAAAEAAgAEAAgAEAAgAEAAgAAAAYDi+wDFI5EoQzzPPeQjkYJPBB/IgN/QBzLgt7QJBnwgA35TDQAQACAAUEoZ/CAM8/H64/e91+Z/fHpz4d2gNsIxgV9aiBYHYhoAswf/7r/VczMMdyuEFlg/+HM0QqvbIdwLJPjNb0DbJ0LLe4F8IEP4V+E+CdwNimY8fftl9TH8/va+OAdAZPh7GQcBhD96PAQQ/uhxEUD4o8dHAOGPHicBUNwNCrP/LX5+fhfTAgTAgxKsKQIB0MVsuoYELVuAAIhuAwKY/btsg1YtQABEtwEBsJm9AQGgDQiA3q6lLyVCi7+DAIheFhEA0csiAiC6DQiA6DbwXiAsxqsPXzUAhF8DQPAJAMEnAEqb9+20OgxbMvgt3htkD4C4WV8DID74BEB08AlgH9B18Fu9N9QeAHGzvgbQAl0Hv+VbozUA4mZ9AoS1gPH+R4Cr3fUkJkjkanc9aQAtED1OApAgenwEIEH0uAhAgujx1JvNgGiQIGkcN5nXACSIlpAAJIhehv2z9PHR7OJtcgHBv73kJwAWF6G3jfeDApAAc4rQ42XXuxd8CIDZhNjCifNeAUiAMvC9P8VVIGCPAA7GkDD7awBogGONAUaZ/fc2AAkwcvgtgWAJ9FiDgK3O/gc3AAkwYviPWgKRAKOF/+g9AAkwUvhP2gSTAKOE/+SrQCTACOF/1GVQEmDr4X/0OQAJsOXwz3IQRgJsNfylPPA8wKl4jgBbCf4it0JoA2wp/LM3gDbAVoK/uABEwBZWFc2WLERAj8vp5mt2IqCnfeSqm1YyYO2LJ91dtSGFsLfkLzB+1axqDdDDAAAAAElFTkSuQmCC">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAC1klEQVR42u3dvU0rQRSA0esVIS0QIEITEBJTAFSCREoFpEhUAgUQExLgTiiAFAnWsuydnzs+X/r0bDQ+3F2vd/Dq4vwspP+aLIHgEByCQ3AIDsEhOASH4BAcEhyCQ3AIDsEhOASH4BAcgkOCQ3AIDsEhOASH4BAcgkNwSHAIDsEhOASH4BAcgkNwCA7BIcGh3Tvp/0f82my8Tgt2uV4PMjnIaLikExl85MNBRvPlncjgw7sVeSsrOASH4Ij9L9So3CJPA1zIU6Hlnca40KsSCzsN80GAFl/SlS8dlncrgkNwCA7BITgEh+AQHIJDgkNwCA7BobBXNuxhiX7u9rBXVrMLbq+sZpfdXlnNLn6ntwmS4d2K4BAcgkNwhL1MceRXw+yV1ezi2yur2WW3V1azC26vrLxbERyCQ3AIDsEhOASH4BAcEhyCQ3AIDoW9smEbS3R0p0vv93Ng0ZCIvbJxJN8gPBQOMpovlBNS+dJhw8PkEBwK1zmG7frxfcu/fjzd9PBD9nudY8jTju0m9lZS6GqHydEpi9//q9Ug6foK6RjDYz8Wu0+RchdJbaTOIWPuoYouUY69sklHyIIy/s4PH7wl7vT2pdAjf7/du85BRoMHhyOxjJo+4Mj6a13hieBIKaPO08FRtc/nu/DBm7GxxceCRIoODziMEDj6O/wvNULKDQ842o+QbqcIHI4ycHT/lvKQEVLoyAKHowwciMDhRAQOIyTcfX7sXT28mhzqTobJgQUcWMCBhXOO7jr8jt8DZRS65djkMDDgwMJhJcuRZUEZ5baxmBwGRtjxFuPdfV5695vDiuDI/3tc/+ngyOqjwhPBkfJlq0MQjnwvnj/BwEf70xo4MvmofMILRxoflWWEi2CR4fpYfRZwJCDSigUc/SppawIOOSEVHIJDcAgOwSE4BIfgkOAQHIJDcAgOwSE4BIfgEByCQ4JDcAgOwSE4BIfgUPp+AE0i2Ux1F1tsAAAAAElFTkSuQmCC">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="拍照点读">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+:root {
+  --bg: #f7f6f2;
+  --surface: #fffdf9;
+  --ink: #23211d;
+  --ink-2: #5c574e;
+  --ink-3: #8d8779;
+  --line: #e4e0d6;
+  --blue: #2f6fb0;
+  --blue-soft: #eaf1f9;
+  --amber: #b0761a;
+  --amber-soft: #fbf0dc;
+  --green: #3f7a3a;
+  --green-soft: #e9f1e4;
+  --red: #a33a35;
+  --radius: 14px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  padding-bottom: 96px;
+  line-height: 1.6;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 12px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 19px;
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.icon-btn {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink-2);
+  font-size: 13px;
+  padding: 7px 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+
+.icon-btn:active { background: #efece4; }
+
+main { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 18px;
+  animation: rise 0.5s var(--ease) both;
+}
+
+.panel.hidden { display: none; }
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+}
+
+.row + .row { border-top: 1px solid var(--line); }
+
+.row label { font-size: 14px; color: var(--ink-2); }
+
+.row .val { font-size: 13px; color: var(--ink-3); min-width: 44px; text-align: right; }
+
+input[type="range"] { flex: 1; accent-color: var(--blue); }
+
+select {
+  font-family: inherit;
+  font-size: 14px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--ink);
+}
+
+.meta { font-size: 12px; color: var(--ink-3); line-height: 1.9; margin-top: 6px; }
+.meta b { font-weight: 500; color: var(--ink-2); }
+
+#empty {
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 44px 24px;
+  text-align: center;
+  animation: rise 0.5s var(--ease) both;
+}
+
+#empty p { color: var(--ink-3); font-size: 14px; margin: 0 0 24px; }
+
+.primary {
+  background: var(--ink);
+  color: #f7f6f2;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-family: inherit;
+  padding: 15px 34px;
+  cursor: pointer;
+  transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+
+.primary:active { transform: scale(0.98); }
+.primary:disabled { opacity: 0.45; }
+
+#preview { animation: rise 0.5s var(--ease) both; }
+#preview.hidden { display: none; }
+
+#photo {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  display: block;
+}
+
+.actions { display: flex; gap: 12px; margin-top: 14px; }
+
+.ghost {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: inherit;
+  padding: 13px;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.ghost.solid { background: var(--ink); color: #f7f6f2; border-color: var(--ink); }
+.ghost:disabled { opacity: 0.45; }
+
+#result.hidden { display: none; }
+
+.block { margin-top: 26px; }
+
+.block h2 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-2);
+  margin: 0 0 12px;
+  letter-spacing: 0.04em;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 15px 16px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  animation: rise 0.55s var(--ease) both;
+}
+
+.card .body { flex: 1; min-width: 0; }
+
+.play {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: 13px;
+  cursor: pointer;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s var(--ease);
+}
+
+.play:active { transform: scale(0.92); }
+
+.word {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ink);
+  outline: none;
+  display: inline-block;
+}
+
+.ph { font-size: 13px; color: var(--amber); margin-left: 8px; }
+.mean { font-size: 14px; color: var(--ink-2); margin-top: 4px; outline: none; }
+
+.sent { font-size: 15px; color: var(--ink); outline: none; display: block; }
+
+[contenteditable]:focus { background: var(--amber-soft); border-radius: 5px; }
+
+.bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(247, 246, 242, 0.94);
+  border-top: 1px solid var(--line);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+body { position: relative; min-height: 100vh; }
+
+.bar .spacer { flex: 1; }
+
+#nowPlaying { font-size: 12px; color: var(--ink-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.status {
+  max-width: 720px;
+  margin: 18px auto 0;
+  padding: 0 20px;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+.status.err { color: var(--red); }
+
+.dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  margin-right: 7px;
+}
+
+.dot.bad { background: var(--amber); }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+.header-btns { display: flex; gap: 8px; align-items: center; }
+
+.badge {
+  display: inline-block;
+  min-width: 18px;
+  padding: 1px 6px;
+  margin-left: 6px;
+  border-radius: 9px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 11px;
+  text-align: center;
+}
+
+.save {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--amber-soft);
+  color: var(--amber);
+  font-size: 15px;
+  cursor: pointer;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s var(--ease), background 0.3s var(--ease);
+}
+
+.save:active { transform: scale(0.9); }
+
+.save.saved {
+  background: var(--green-soft);
+  color: var(--green);
+}
+
+.del {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-3);
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.del:active { background: var(--amber-soft); color: var(--red); }
+
+#vocabView .actions { margin-top: 4px; }
+
+.review-card { flex-direction: column; align-items: stretch; }
+.review-card .play { display: none; }
+
+.review-btns { display: flex; gap: 12px; margin-top: 14px; }
+.review-btns .ghost { flex: 1; }
+
+/* ---------- 设置页：云端配置 ---------- */
+
+.sub-block {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+h2.sub {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-2);
+  margin: 0 0 14px;
+  letter-spacing: 0.04em;
+}
+
+.sub-note {
+  font-size: 11px;
+  color: var(--ink-3);
+  font-weight: 400;
+  margin-left: 6px;
+  letter-spacing: 0;
+}
+
+.field { margin-bottom: 12px; }
+
+.field label {
+  display: block;
+  font-size: 12px;
+  color: var(--ink-3);
+  margin-bottom: 5px;
+}
+
+.field label .hint { color: var(--ink-3); opacity: 0.75; }
+
+.field input,
+.field select {
+  width: 100%;
+  font-family: inherit;
+  font-size: 13px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--blue);
+  background: #fff;
+}
+
+.field input::placeholder { color: #bdb7a8; }
+
+input[type="checkbox"].check {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--blue);
+  cursor: pointer;
+}
+
+.icon-btn.accent {
+  border-color: var(--blue);
+  color: var(--blue);
+  background: var(--blue-soft);
+}
+
+.meta.center { text-align: center; margin-top: 16px; }
+.meta .warn { color: var(--amber); }
+
+.status .warn { color: var(--amber); }
+
+/* ---------- 例句中文 ---------- */
+
+.zh {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  margin-top: 6px;
+  padding-left: 10px;
+  border-left: 2px solid var(--green-soft);
+  line-height: 1.7;
+}
+
+.block h2 { display: flex; align-items: center; justify-content: space-between; }
+.block h2 .tools { display: flex; gap: 8px; }
+.block h2 .tools .icon-btn { font-size: 12px; padding: 5px 11px; }
+
+.hidden { display: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+</style>
+</head>
+<body>
+
+<header>
+  <h1>拍照点读</h1>
+  <div class="header-btns">
+    <button class="icon-btn accent hidden" id="btnInstall">安装</button>
+    <button class="icon-btn" id="btnVocab">生词本<span class="badge" id="vocabBadge" hidden></span></button>
+    <button class="icon-btn" id="btnSettings">设置</button>
+  </div>
+</header>
+
+<main>
+  <section class="panel hidden" id="settings">
+    <div class="row">
+      <label for="rate">朗读语速</label>
+      <input type="range" id="rate" min="0.5" max="1.5" step="0.05" value="0.85">
+      <span class="val" id="rateVal">0.85x</span>
+    </div>
+    <div class="row">
+      <label for="accent">发音口音</label>
+      <select id="accent">
+        <option value="en-US">美音 en-US</option>
+        <option value="en-GB">英音 en-GB</option>
+        <option value="en-AU">澳音 en-AU</option>
+      </select>
+    </div>
+    <div class="row">
+      <label for="engine">识别引擎</label>
+      <select id="engine">
+        <option value="auto">自动（推荐）</option>
+        <option value="local">本地 OCR · 免费</option>
+        <option value="cloud">云端 · 手机可用</option>
+      </select>
+    </div>
+    <div class="row">
+      <label for="showZh">显示例句翻译</label>
+      <input type="checkbox" id="showZh" class="check">
+    </div>
+
+    <div class="meta" id="srvMeta">读取中…</div>
+
+    <div class="sub-block">
+      <h2 class="sub">云端 API <span class="sub-note">手机直连，不用开电脑</span></h2>
+
+      <div class="field">
+        <label for="provider">服务商</label>
+        <select id="provider"></select>
+      </div>
+      <div class="field">
+        <label for="baseUrl">接口地址</label>
+        <input id="baseUrl" type="url" spellcheck="false" autocomplete="off" placeholder="https://…/v1">
+      </div>
+      <div class="field">
+        <label for="model">模型 <span class="hint">需支持图片输入</span></label>
+        <input id="model" type="text" spellcheck="false" autocomplete="off" placeholder="qwen3.6-flash">
+      </div>
+      <div class="field">
+        <label for="apiKey">API Key</label>
+        <input id="apiKey" type="password" spellcheck="false" autocomplete="off" placeholder="sk-…">
+      </div>
+
+      <div class="actions">
+        <button class="ghost" id="btnSaveKey">保存</button>
+        <button class="ghost solid" id="btnTestKey">测试连接</button>
+      </div>
+      <div class="meta" id="keyMeta">
+        Key 只存在这台设备的浏览器里（localStorage），不会上传到任何服务器，也不会进代码仓库。
+      </div>
+    </div>
+  </section>
+
+  <section id="empty">
+    <p>拍下书页，自动识别重点单词与例句，点一下就能听。</p>
+    <button class="primary" id="btnShoot">拍照识别</button>
+    <div class="meta center" id="engineHint"></div>
+  </section>
+
+  <section id="preview" class="hidden">
+    <img id="photo" alt="书页预览">
+    <div class="actions">
+      <button class="ghost" id="btnRetake">重拍</button>
+      <button class="ghost solid" id="btnScan">开始识别</button>
+    </div>
+  </section>
+
+  <section id="result" class="hidden">
+    <div class="block" id="blockWords">
+      <h2>重点单词</h2>
+      <div id="words"></div>
+    </div>
+    <div class="block" id="blockSent">
+      <h2>例句</h2>
+      <div id="sentences"></div>
+    </div>
+  </section>
+
+  <div class="status" id="status"></div>
+
+  <section id="vocabView" class="hidden">
+    <div class="panel">
+      <div class="row" style="border-top:none">
+        <label id="vocabStats">读取中…</label>
+      </div>
+      <div class="actions" style="margin-top:10px">
+        <button class="ghost" id="btnExport">导出 CSV (Anki)</button>
+        <button class="ghost solid" id="btnReview">开始复习</button>
+      </div>
+    </div>
+    <div id="reviewArea"></div>
+    <div class="block">
+      <h2>全部生词</h2>
+      <div id="vocabList"></div>
+    </div>
+  </section>
+</main>
+
+<div class="bar">
+  <button class="icon-btn" id="btnStop">停止</button>
+  <span id="nowPlaying">就绪</span>
+  <span class="spacer"></span>
+</div>
+
+<input type="file" id="file" accept="image/*" capture="environment" hidden>
+
+<script>
+'use strict';
+
+/* 生词本：IndexedDB 持久化 + Leitner 间隔复习 + CSV 导出（Anki 兼容） */
+
+const Vocab = (() => {
+  const INTERVALS = [1, 2, 4, 8, 16]; // 天，box 0-4
+  let dbPromise = null;
+
+  function openDB() {
+    if (dbPromise) return dbPromise;
+    dbPromise = new Promise((resolve, reject) => {
+      const req = indexedDB.open('engscan', 1);
+      req.onupgradeneeded = () => {
+        req.result.createObjectStore('words', { keyPath: 'word' });
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => reject(req.error);
+    });
+    return dbPromise;
+  }
+
+  function tx(store, mode, fn) {
+    return openDB().then(
+      (db) =>
+        new Promise((resolve, reject) => {
+          const t = db.transaction(store, mode);
+          const req = fn(t.objectStore(store));
+          t.oncomplete = () => resolve(req && req.result);
+          t.onerror = () => reject(t.error);
+        })
+    );
+  }
+
+  const put = (item) => tx('words', 'readwrite', (s) => s.put(item));
+  const del = (word) => tx('words', 'readwrite', (s) => s.delete(word));
+  const clear = () => tx('words', 'readwrite', (s) => s.clear());
+  const get = (word) => tx('words', 'readonly', (s) => s.get(word));
+  const all = () => tx('words', 'readonly', (s) => s.getAll());
+
+  async function has(word) {
+    const r = await get(word);
+    return Boolean(r);
+  }
+
+  async function toggle(item) {
+    const existing = await get(item.word);
+    if (existing) {
+      await del(item.word);
+      return false;
+    }
+    await put({
+      word: item.word,
+      phonetic: item.phonetic || '',
+      meaning: item.meaning || '',
+      addedAt: Date.now(),
+      lastReviewAt: 0,
+      box: 0,
+    });
+    return true;
+  }
+
+  function isDue(item) {
+    if (!item.box) return true; // 新词立即进入复习
+    const interval = INTERVALS[Math.min(item.box, INTERVALS.length - 1)] * 86400000;
+    return Date.now() - (item.lastReviewAt || item.addedAt) >= interval;
+  }
+
+  async function review(word, known) {
+    const item = await get(word);
+    if (!item) return;
+    item.box = known ? Math.min(item.box + 1, INTERVALS.length - 1) : 0;
+    item.lastReviewAt = Date.now();
+    await put(item);
+  }
+
+  function toCSV(items) {
+    const esc = (s) => '"' + String(s || '').replace(/"/g, '""') + '"';
+    const rows = [['front', 'back', 'tags']];
+    items.forEach((it) => {
+      const front = [it.word, it.phonetic].filter(Boolean).join(' ');
+      const back = it.meaning || '';
+      rows.push([esc(front), esc(back), esc('engscan')]);
+    });
+    return '\uFEFF' + rows.map((r) => r.join(',')).join('\r\n');
+  }
+
+  function downloadCSV(items) {
+    const blob = new Blob([toCSV(items)], { type: 'text/csv;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'engscan-vocab.csv';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  }
+
+  return { toggle, has, del, clear, all, isDue, review, toCSV, downloadCSV };
+})();
+
+</script>
+<script>
+'use strict';
+
+/* engscan 前端
+ * 双引擎：
+ *   - 本地 OCR：走同源 Node 服务的 /api/local-scan（免费、快，但需要电脑开着）
+ *   - 云端 VLM：浏览器直连服务商接口（手机可用，只存本地配置；CORS 已验证放行）
+ * 自动模式下：能连上本地服务就用本地，否则用云端。
+ */
+
+const $ = (id) => document.getElementById(id);
+
+const els = {
+  file: $('file'),
+  empty: $('empty'),
+  preview: $('preview'),
+  photo: $('photo'),
+  result: $('result'),
+  words: $('words'),
+  sentences: $('sentences'),
+  blockWords: $('blockWords'),
+  blockSent: $('blockSent'),
+  status: $('status'),
+  settings: $('settings'),
+  rate: $('rate'),
+  rateVal: $('rateVal'),
+  accent: $('accent'),
+  engine: $('engine'),
+  showZh: $('showZh'),
+  srvMeta: $('srvMeta'),
+  keyMeta: $('keyMeta'),
+  provider: $('provider'),
+  baseUrl: $('baseUrl'),
+  model: $('model'),
+  apiKey: $('apiKey'),
+  engineHint: $('engineHint'),
+  nowPlaying: $('nowPlaying'),
+  btnInstall: $('btnInstall'),
+};
+
+/* ================= 工具 ================= */
+
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+}
+
+function setStatus(text, isErr) {
+  els.status.textContent = text || '';
+  els.status.className = 'status' + (isErr ? ' err' : '');
+}
+
+const ERROR_TEXT = {
+  NO_KEY: '还没填云端 API Key，点右上角「设置」填一下',
+  NO_ENGINE: '没有可用的识别引擎：开电脑用本地 OCR，或在设置里填云端 Key',
+  OCR_UNAVAILABLE: '本地 OCR 引擎不可用，请重启服务查看日志',
+  OCR_FAILED: '本地识别失败',
+  BAD_IMAGE: '图片格式不支持',
+  IMAGE_TOO_LARGE: '图片过大',
+  UPSTREAM_TIMEOUT: '请求超时（模型排队或网络慢），稍后再试',
+  UPSTREAM_BAD_JSON: '上游返回异常',
+  PARSE_FAILED: '模型输出无法解析，换张更清晰的照片试试',
+  BAD_REQUEST: '请求格式错误',
+  NETWORK: '网络不通：检查手机网络，或该接口被网络环境拦截',
+  UNAUTHORIZED: 'API Key 无效或已过期（401）',
+  NOT_FOUND: '接口地址或模型名不对（404），检查设置里的地址与模型',
+  RATE_LIMIT: '额度不足或请求过频（429）',
+};
+
+function errText(code) {
+  if (!code) return '未知错误';
+  if (ERROR_TEXT[code]) return ERROR_TEXT[code];
+  if (code.indexOf('UPSTREAM_') === 0) return '上游接口 ' + code.replace('UPSTREAM_', '');
+  return code;
+}
+
+/* ================= 本地配置 ================= */
+
+const store = {
+  get(k, d) {
+    try {
+      const v = localStorage.getItem(k);
+      return v === null ? d : v;
+    } catch {
+      return d;
+    }
+  },
+  set(k, v) {
+    try {
+      localStorage.setItem(k, String(v));
+    } catch {
+      /* 隐私模式下静默失败 */
+    }
+  },
+};
+
+const prefs = {
+  rate: parseFloat(store.get('rate', '0.85')) || 0.85,
+  accent: store.get('accent', 'en-US') || 'en-US',
+  engine: store.get('engine', 'auto') || 'auto',
+  showZh: store.get('showZh', '1') === '1',
+};
+
+const cloud = {
+  load() {
+    try {
+      const raw = store.get('cloud', '');
+      if (!raw) return { provider: 'dashscope', baseUrl: '', model: '', apiKey: '' };
+      const o = JSON.parse(raw);
+      return {
+        provider: o.provider || 'custom',
+        baseUrl: o.baseUrl || '',
+        model: o.model || '',
+        apiKey: o.apiKey || '',
+      };
+    } catch {
+      return { provider: 'custom', baseUrl: '', model: '', apiKey: '' };
+    }
+  },
+  save(o) {
+    store.set('cloud', JSON.stringify(o));
+  },
+};
+
+const PROVIDERS = [
+  { id: 'dashscope', name: '阿里百炼 · 通用', baseUrl: 'https://dashscope.aliyuncs.com/compatible-mode/v1', model: 'qwen3.6-flash' },
+  { id: 'ali-tp-cn', name: '阿里 Token Plan · 北京', baseUrl: 'https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1', model: 'qwen3.6-flash' },
+  { id: 'ali-tp-sg', name: '阿里 Token Plan · 新加坡', baseUrl: 'https://token-plan.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1', model: 'qwen3.6-flash' },
+  { id: 'mimo', name: '小米 MiMo · 官方', baseUrl: 'https://api.xiaomimimo.com/v1', model: 'mimo-v2.5-pro' },
+  { id: 'mimo-tp-cn', name: '小米 Token Plan · 国内', baseUrl: 'https://token-plan-cn.xiaomimimo.com/v1', model: 'mimo-v2.5-pro' },
+  { id: 'mimo-tp-sg', name: '小米 Token Plan · 新加坡', baseUrl: 'https://token-plan-sgp.xiaomimimo.com/v1', model: 'mimo-v2.5-pro' },
+  { id: 'custom', name: '自定义（OpenAI 兼容）', baseUrl: '', model: '' },
+];
+
+function applyProvider(id, { keepFields } = {}) {
+  const p = PROVIDERS.find((x) => x.id === id);
+  if (!p) return;
+  if (!keepFields) {
+    if (p.baseUrl) els.baseUrl.value = p.baseUrl;
+    if (p.model) els.model.value = p.model;
+  }
+  els.provider.value = id;
+}
+
+/* ================= 环境探测 ================= */
+
+let env = {
+  probed: false,
+  localServer: false,
+  ocrReady: false,
+  localStorage: '',
+  serverKey: false,
+  serverMock: false,
+};
+
+async function probeServer() {
+  try {
+    const r = await fetch('./api/config', { cache: 'no-store' });
+    if (!r.ok) throw new Error('no server');
+    const c = await r.json();
+    env.localServer = true;
+    env.ocrReady = Boolean(c.ocrReady);
+    env.serverKey = Boolean(c.hasKey);
+    env.serverMock = Boolean(c.mock);
+    env.localNote = c.ocrReady ? '本地 OCR 就绪' : '本地 OCR 未就绪' + (c.ocrError ? '：' + c.ocrError : '');
+  } catch {
+    env.localServer = false;
+    env.ocrReady = false;
+  }
+  env.probed = true;
+}
+
+function cloudReady() {
+  const c = cloud.load();
+  return Boolean(c.baseUrl && c.model && c.apiKey);
+}
+
+/** 实际要用的引擎 */
+function activeEngine() {
+  const want = prefs.engine;
+  const canLocal = env.ocrReady;
+  const canCloud = cloudReady();
+  if (want === 'local') return canLocal ? 'local' : canCloud ? 'cloud' : 'none';
+  if (want === 'cloud') return canCloud ? 'cloud' : canLocal ? 'local' : 'none';
+  if (canLocal) return 'local';
+  if (canCloud) return 'cloud';
+  return 'none';
+}
+
+function renderStatusPanels() {
+  const canLocal = env.ocrReady;
+  const canCloud = cloudReady();
+  const c = cloud.load();
+  const eng = activeEngine();
+
+  const localLine = env.localServer
+    ? `<span class="dot ${canLocal ? '' : 'bad'}"></span>本地服务 <b>已连接</b>（${escapeHTML(env.localNote || '')}）`
+    : `<span class="dot bad"></span>本地服务 <b>未连接</b>（当前是网页版，只能用云端）`;
+
+  const cloudLine = canCloud
+    ? `<span class="dot"></span>云端 API <b>已配置</b>（${escapeHTML(c.model)}）`
+    : `<span class="dot bad"></span>云端 API <b>未配置</b>（手机用需要填 Key）`;
+
+  const nowLine =
+    eng === 'local'
+      ? '当前使用：<b>本地 OCR</b>（免费）'
+      : eng === 'cloud'
+        ? '当前使用：<b>云端识别</b>'
+        : '<b class="warn">当前没有可用引擎</b>：开电脑跑本地服务，或在下面填云端 Key';
+
+  els.srvMeta.innerHTML = localLine + '<br>' + cloudLine + '<br>' + nowLine;
+
+  if (eng === 'local') els.engineHint.innerHTML = '当前引擎：<b>本地 OCR</b>（免费 · 需电脑开着）';
+  else if (eng === 'cloud') els.engineHint.innerHTML = '当前引擎：<b>云端 ' + escapeHTML(c.model) + '</b>';
+  else els.engineHint.innerHTML = '点右上角「设置」配置云端 Key，或开着电脑用本地 OCR。';
+}
+
+/* ================= 设置界面 ================= */
+
+els.rate.value = prefs.rate;
+els.rateVal.textContent = prefs.rate.toFixed(2) + 'x';
+els.accent.value = prefs.accent;
+els.engine.value = prefs.engine;
+els.showZh.checked = prefs.showZh;
+
+els.rate.addEventListener('input', () => {
+  prefs.rate = parseFloat(els.rate.value);
+  els.rateVal.textContent = prefs.rate.toFixed(2) + 'x';
+  store.set('rate', prefs.rate);
+});
+
+els.accent.addEventListener('change', () => {
+  prefs.accent = els.accent.value;
+  store.set('accent', prefs.accent);
+});
+
+els.engine.addEventListener('change', () => {
+  prefs.engine = els.engine.value;
+  store.set('engine', prefs.engine);
+  renderStatusPanels();
+});
+
+els.showZh.addEventListener('change', () => {
+  prefs.showZh = els.showZh.checked;
+  store.set('showZh', prefs.showZh ? '1' : '0');
+  refreshTranslationDisplay();
+});
+
+$('btnSettings').addEventListener('click', () => els.settings.classList.toggle('hidden'));
+
+// 服务商下拉
+PROVIDERS.forEach((p) => {
+  const o = document.createElement('option');
+  o.value = p.id;
+  o.textContent = p.name;
+  els.provider.appendChild(o);
+});
+
+(function initCloudForm() {
+  const c = cloud.load();
+  els.provider.value = c.provider;
+  els.baseUrl.value = c.baseUrl;
+  els.model.value = c.model;
+  els.apiKey.value = c.apiKey;
+  if (c.apiKey) els.keyMeta.textContent = 'Key 已保存在本机浏览器（只显示状态，不回显内容）。';
+})();
+
+els.provider.addEventListener('change', () => {
+  if (els.provider.value !== 'custom') applyProvider(els.provider.value);
+});
+
+[els.baseUrl, els.model].forEach((el) =>
+  el.addEventListener('input', () => {
+    // 手动改过地址或模型，就切成自定义，避免下次被预设覆盖
+    const cur = PROVIDERS.find((p) => p.id === els.provider.value);
+    if (cur && (cur.baseUrl !== els.baseUrl.value || cur.model !== els.model.value)) {
+      els.provider.value = 'custom';
+    }
+  })
+);
+
+function saveCloud(quiet) {
+  cloud.save({
+    provider: els.provider.value,
+    baseUrl: els.baseUrl.value.trim(),
+    model: els.model.value.trim(),
+    apiKey: els.apiKey.value.trim(),
+  });
+  renderStatusPanels();
+  if (!quiet) {
+    const c = cloud.load();
+    els.keyMeta.textContent = c.apiKey
+      ? '已保存到本机浏览器。手机端要在手机上再填一次（配置不跨设备同步）。'
+      : '已保存。还没填 Key，云端识别不可用。';
+  }
+}
+
+$('btnSaveKey').addEventListener('click', () => saveCloud(false));
+
+// 填完自动保存，免得用户忘了点
+[els.baseUrl, els.model, els.apiKey].forEach((el) => el.addEventListener('blur', () => saveCloud(true)));
+
+$('btnTestKey').addEventListener('click', async () => {
+  saveCloud(true);
+  const c = cloud.load();
+  if (!c.baseUrl || !c.model || !c.apiKey) {
+    els.keyMeta.textContent = '地址、模型、Key 三项都要填才能测试。';
+    return;
+  }
+  const btn = $('btnTestKey');
+  btn.disabled = true;
+  btn.textContent = '测试中…';
+  els.keyMeta.textContent = '正在连 ' + c.baseUrl + ' …';
+  const t0 = Date.now();
+  try {
+    const r = await fetchWithTimeout(
+      c.baseUrl.replace(/\/+$/, '') + '/chat/completions',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + c.apiKey },
+        body: JSON.stringify({ model: c.model, messages: [{ role: 'user', content: 'hi' }] }),
+      },
+      20000
+    );
+    const raw = await r.text();
+    if (!r.ok) {
+      els.keyMeta.textContent = '失败：' + errText(r.status === 401 ? 'UNAUTHORIZED' : r.status === 404 ? 'NOT_FOUND' : r.status === 429 ? 'RATE_LIMIT' : 'UPSTREAM_' + r.status) + '｜' + raw.slice(0, 160);
+    } else {
+      els.keyMeta.textContent = `连通正常（${((Date.now() - t0) / 1000).toFixed(1)}s）。注意：该模型必须支持图片输入才能做拍照识别。`;
+    }
+  } catch (e) {
+    els.keyMeta.textContent = '失败：' + (e.name === 'AbortError' ? '超时' : errText('NETWORK')) + '｜' + String(e.message || '').slice(0, 120);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '测试连接';
+  }
+});
+
+/* ================= 图像采集 ================= */
+
+let currentImage = null;
+let currentData = null;
+
+$('btnShoot').addEventListener('click', () => els.file.click());
+$('btnRetake').addEventListener('click', () => els.file.click());
+
+els.file.addEventListener('change', async (e) => {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  try {
+    const dataUrl = await compress(file, 1500);
+    currentImage = dataUrl;
+    els.photo.src = dataUrl;
+    els.empty.classList.add('hidden');
+    els.settings.classList.add('hidden');
+    els.preview.classList.remove('hidden');
+    els.result.classList.add('hidden');
+    setStatus('确认书页清晰后点「开始识别」。');
+  } catch (err) {
+    setStatus('图片处理失败：' + err.message, true);
+  }
+  els.file.value = '';
+});
+
+function compress(file, maxSide) {
+  return new Promise((resolve, reject) => {
+    const draw = (bmp) => {
+      const w = bmp.width || bmp.naturalWidth;
+      const h = bmp.height || bmp.naturalHeight;
+      const scale = Math.min(1, maxSide / Math.max(w, h));
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(w * scale);
+      canvas.height = Math.round(h * scale);
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+      if (bmp.close) bmp.close();
+      resolve(canvas.toDataURL('image/jpeg', 0.85));
+    };
+
+    if (window.createImageBitmap) {
+      createImageBitmap(file, { imageOrientation: 'from-image' }).then(draw).catch(fallback);
+    } else {
+      fallback();
+    }
+
+    function fallback() {
+      const img = new Image();
+      img.onload = () => draw(img);
+      img.onerror = () => reject(new Error('无法读取图片'));
+      img.src = URL.createObjectURL(file);
+    }
+  });
+}
+
+/* ================= 识别 ================= */
+
+const VLM_PROMPT = `You are an English learning assistant. Look at the photo of a printed English textbook page.
+
+Extract:
+1. "sentences": the complete English example sentences (完整例句), each as one clean string. Fix hyphenation at line breaks, remove page numbers and headers/footers. Max 12.
+2. "words": the key vocabulary words (重点单词) shown on the page. For each, give "word" (the base/dictionary form), "phonetic" (IPA in slashes, best effort), "meaning" (brief Chinese 释义).
+3. For each sentence also give "zh": a natural, concise Chinese translation (中文翻译).
+
+Reply with JSON only, no markdown fences, no extra text:
+{"sentences":[{"text":"...","zh":"..."}],"words":[{"word":"...","phonetic":"...","meaning":"..."}]}
+
+If the image contains no readable English, reply exactly: {"sentences":[],"words":[]}`;
+
+function fetchWithTimeout(url, opts, ms) {
+  const ac = new AbortController();
+  const timer = setTimeout(() => ac.abort(), ms);
+  return fetch(url, { ...opts, signal: ac.signal }).finally(() => clearTimeout(timer));
+}
+
+/** 从模型输出里抠出 JSON，容忍 markdown 代码块与前后废话 */
+function extractJSON(text) {
+  if (typeof text !== 'string') return null;
+  const fenced = /```(?:json)?\s*([\s\S]*?)```/i.exec(text);
+  const candidates = [fenced && fenced[1], text];
+  for (const c of candidates) {
+    if (!c) continue;
+    const start = c.indexOf('{');
+    const end = c.lastIndexOf('}');
+    if (start === -1 || end <= start) continue;
+    try {
+      return JSON.parse(c.slice(start, end + 1));
+    } catch {
+      /* next */
+    }
+  }
+  return null;
+}
+
+function normalize(data) {
+  const sentences = Array.isArray(data && data.sentences) ? data.sentences : [];
+  const words = Array.isArray(data && data.words) ? data.words : [];
+  return {
+    sentences: sentences
+      .map((s) => (typeof s === 'string' ? { text: s } : s))
+      .filter((s) => s && typeof s.text === 'string' && s.text.trim())
+      .map((s) => ({
+        text: s.text.replace(/\s+/g, ' ').trim(),
+        zh: typeof s.zh === 'string' ? s.zh.trim() : '',
+      }))
+      .slice(0, 20),
+    words: words
+      .map((w) => (typeof w === 'string' ? { word: w } : w))
+      .filter((w) => w && typeof w.word === 'string' && w.word.trim())
+      .map((w) => ({
+        word: w.word.replace(/\s+/g, ' ').trim(),
+        phonetic: typeof w.phonetic === 'string' ? w.phonetic.trim() : '',
+        meaning: typeof w.meaning === 'string' ? w.meaning.trim() : '',
+      }))
+      .slice(0, 40),
+  };
+}
+
+async function scanLocal(image) {
+  const r = await fetchWithTimeout(
+    './api/local-scan',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ image }),
+    },
+    120000
+  );
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(errText(data.error) + (data.detail ? '｜' + String(data.detail).slice(0, 160) : ''));
+  return data;
+}
+
+async function scanCloud(image) {
+  const c = cloud.load();
+  if (!c.baseUrl || !c.model || !c.apiKey) throw new Error(errText('NO_KEY'));
+
+  let r;
+  try {
+    r = await fetchWithTimeout(
+      c.baseUrl.replace(/\/+$/, '') + '/chat/completions',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + c.apiKey },
+        body: JSON.stringify({
+          model: c.model,
+          temperature: 0.2,
+          messages: [
+            {
+              role: 'user',
+              content: [
+                { type: 'image_url', image_url: { url: image } },
+                { type: 'text', text: VLM_PROMPT },
+              ],
+            },
+          ],
+        }),
+      },
+      90000
+    );
+  } catch (e) {
+    if (e.name === 'AbortError') throw new Error(errText('UPSTREAM_TIMEOUT'));
+    throw new Error(errText('NETWORK') + '｜' + String(e.message || '').slice(0, 120));
+  }
+
+  const raw = await r.text();
+  if (!r.ok) {
+    const code = r.status === 401 ? 'UNAUTHORIZED' : r.status === 404 ? 'NOT_FOUND' : r.status === 429 ? 'RATE_LIMIT' : 'UPSTREAM_' + r.status;
+    throw new Error(errText(code) + '｜' + raw.slice(0, 200));
+  }
+
+  let json;
+  try {
+    json = JSON.parse(raw);
+  } catch {
+    throw new Error(errText('UPSTREAM_BAD_JSON'));
+  }
+  const content = json && json.choices && json.choices[0] && json.choices[0].message && json.choices[0].message.content;
+  const text = typeof content === 'string' ? content : Array.isArray(content) ? content.map((x) => (x && x.text) || '').join('') : '';
+  const parsed = extractJSON(text);
+  if (!parsed) throw new Error(errText('PARSE_FAILED'));
+  return { ...normalize(parsed), mode: 'cloud' };
+}
+
+$('btnScan').addEventListener('click', async () => {
+  if (!currentImage) return;
+  const eng = activeEngine();
+  if (eng === 'none') {
+    setStatus(errText('NO_ENGINE'), true);
+    els.settings.classList.remove('hidden');
+    return;
+  }
+
+  const btn = $('btnScan');
+  btn.disabled = true;
+  btn.textContent = '识别中…';
+  setStatus(eng === 'local' ? '本地识别中，通常 2–5 秒。' : '云端识别中，通常 5–20 秒。');
+
+  const t0 = Date.now();
+  try {
+    const data = eng === 'local' ? await scanLocal(currentImage) : await scanCloud(currentImage);
+    currentData = data;
+    render(data);
+    const n = (data.words || []).length + (data.sentences || []).length;
+    const secs = ((Date.now() - t0) / 1000).toFixed(1);
+    const tag = eng === 'local' ? '本地 OCR' : '云端 ' + cloud.load().model;
+    setStatus(
+      n === 0
+        ? '没有识别到英文内容，换个光线好点的角度再拍一张。'
+        : `识别完成（${tag} ${secs}s）：${(data.words || []).length} 个单词、${(data.sentences || []).length} 个例句。点文字可编辑，点圆形按钮朗读。`
+    );
+  } catch (err) {
+    setStatus('识别失败：' + err.message, true);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '开始识别';
+  }
+});
+
+/* ================= 例句翻译（本地 OCR 后的补充能力） ================= */
+
+async function translateSentences() {
+  if (!currentData || !currentData.sentences.length) return;
+  if (!cloudReady()) {
+    setStatus('要翻译例句，先在设置里填云端 API Key。', true);
+    return;
+  }
+  const btn = $('btnTranslate');
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = '翻译中…';
+  }
+  setStatus('正在翻译例句…');
+
+  const c = cloud.load();
+  const list = currentData.sentences.map((s, i) => `${i + 1}. ${s.text}`).join('\n');
+  const prompt = `把下面编号的英文句子逐条翻译成自然、简洁的中文，只输出译文，每行一条，保持原编号，不要额外说明：\n${list}`;
+
+  try {
+    const r = await fetchWithTimeout(
+      c.baseUrl.replace(/\/+$/, '') + '/chat/completions',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + c.apiKey },
+        body: JSON.stringify({ model: c.model, temperature: 0.2, messages: [{ role: 'user', content: prompt }] }),
+      },
+      60000
+    );
+    const raw = await r.text();
+    if (!r.ok) throw new Error(errText(r.status === 401 ? 'UNAUTHORIZED' : r.status === 404 ? 'NOT_FOUND' : r.status === 429 ? 'RATE_LIMIT' : 'UPSTREAM_' + r.status));
+    const json = JSON.parse(raw);
+    const content = json.choices && json.choices[0] && json.choices[0].message && json.choices[0].message.content;
+    const text = typeof content === 'string' ? content : Array.isArray(content) ? content.map((x) => (x && x.text) || '').join('') : '';
+    const lines = text
+      .split(/\r?\n/)
+      .map((l) => l.replace(/^\s*\d+[.、)]\s*/, '').trim())
+      .filter(Boolean);
+    currentData.sentences.forEach((s, i) => {
+      if (lines[i]) s.zh = lines[i];
+    });
+    render(currentData);
+    setStatus(`已翻译 ${Math.min(lines.length, currentData.sentences.length)} 条例句。`);
+  } catch (e) {
+    setStatus('翻译失败：' + (e.name === 'AbortError' ? '超时' : e.message), true);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = '翻译例句';
+    }
+  }
+}
+
+function refreshTranslationDisplay() {
+  if (currentData) render(currentData);
+}
+
+/* ================= 渲染 ================= */
+
+function render(data) {
+  const words = data.words || [];
+  const sentences = data.sentences || [];
+
+  els.words.innerHTML = '';
+  const phoneticOf = (w) => w.phoneticDict || w.phonetic || '';
+  words.forEach((w, i) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.animationDelay = Math.min(i, 10) * 0.05 + 's';
+    card.innerHTML =
+      `<div class="body">` +
+      `<div><span class="word" contenteditable="plaintext-only" data-k="word">${escapeHTML(w.word)}</span>` +
+      (phoneticOf(w)
+        ? `<span class="ph">${escapeHTML(phoneticOf(w))}${w.phoneticDict ? '' : '?'}</span>`
+        : '') +
+      `</div>` +
+      `<div class="mean" contenteditable="plaintext-only" data-k="meaning">${escapeHTML(w.meaning || '（点此补充释义）')}</div>` +
+      `</div>` +
+      `<button class="save" data-save="${escapeHTML(w.word)}" title="收藏到生词本">＋</button>` +
+      `<button class="play" title="朗读">▸</button>`;
+
+    const target = card.querySelector('.word');
+    card.querySelector('.play').addEventListener('click', () => speak(target.textContent.trim()));
+
+    const saveBtn = card.querySelector('.save');
+    Vocab.has(w.word.toLowerCase())
+      .then((saved) => saveBtn.classList.toggle('saved', saved))
+      .catch(() => {});
+    saveBtn.addEventListener('click', async () => {
+      try {
+        const added = await Vocab.toggle({
+          word: w.word.toLowerCase(),
+          phonetic: phoneticOf(w),
+          meaning: w.meaning || '',
+        });
+        saveBtn.classList.toggle('saved', added);
+        setStatus(added ? `已收藏「${w.word}」到生词本。` : `已从生词本移除「${w.word}」。`);
+        document.dispatchEvent(new CustomEvent('vocab-changed'));
+      } catch {
+        setStatus('生词本不可用（IndexedDB 被禁用？）', true);
+      }
+    });
+
+    bindEdit(card, w);
+    els.words.appendChild(card);
+  });
+
+  // 例句区标题栏（翻译按钮）
+  const head = els.blockSent.querySelector('h2');
+  const oldTools = els.blockSent.querySelector('.tools');
+  if (oldTools) oldTools.remove();
+  const hasZh = sentences.some((s) => s.zh);
+  if (sentences.length && !hasZh && cloudReady()) {
+    const tools = document.createElement('div');
+    tools.className = 'tools';
+    tools.innerHTML = '<button class="icon-btn" id="btnTranslate">翻译例句</button>';
+    head.appendChild(tools);
+    $('btnTranslate').addEventListener('click', translateSentences);
+  }
+
+  els.sentences.innerHTML = '';
+  sentences.forEach((s, i) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.animationDelay = Math.min(i, 10) * 0.05 + 's';
+    const zhOn = prefs.showZh && s.zh;
+    card.innerHTML =
+      `<div class="body"><span class="sent" contenteditable="plaintext-only" data-k="text">${escapeHTML(s.text)}</span>` +
+      (zhOn ? `<div class="zh">${escapeHTML(s.zh)}</div>` : '') +
+      `</div>` +
+      `<button class="play" title="朗读">▸</button>`;
+
+    const target = card.querySelector('.sent');
+    card.querySelector('.play').addEventListener('click', () => speak(target.textContent.trim()));
+    bindEdit(card, s);
+    els.sentences.appendChild(card);
+  });
+
+  els.blockWords.style.display = words.length ? '' : 'none';
+  els.blockSent.style.display = sentences.length ? '' : 'none';
+  els.result.classList.remove('hidden');
+}
+
+function bindEdit(card, obj) {
+  card.querySelectorAll('[contenteditable]').forEach((node) => {
+    node.addEventListener('blur', () => {
+      const key = node.dataset.k;
+      const val = node.textContent.trim();
+      if (key && val) obj[key] = val;
+    });
+    node.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        node.blur();
+      }
+    });
+  });
+}
+
+/* ================= 朗读 ================= */
+
+let voices = [];
+
+function pickVoice() {
+  if (!voices.length) return null;
+  const want = prefs.accent;
+  const exact = voices.find((v) => v.lang && v.lang.replace('_', '-') === want);
+  if (exact) return exact;
+  const prefix = want.slice(0, 2);
+  return voices.find((v) => v.lang && v.lang.toLowerCase().startsWith(prefix)) || null;
+}
+
+function loadVoices() {
+  if (typeof speechSynthesis === 'undefined') return;
+  voices = speechSynthesis.getVoices() || [];
+}
+
+if (typeof speechSynthesis !== 'undefined') {
+  loadVoices();
+  speechSynthesis.addEventListener('voiceschanged', loadVoices);
+}
+
+function speak(text) {
+  if (!text) return;
+  if (typeof speechSynthesis === 'undefined') {
+    setStatus('当前浏览器不支持朗读，请用 Chrome / Edge / Safari。', true);
+    return;
+  }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  const v = pickVoice();
+  if (v) u.voice = v;
+  u.lang = v ? v.lang : prefs.accent;
+  u.rate = prefs.rate;
+  u.onstart = () => {
+    els.nowPlaying.textContent = text.length > 28 ? text.slice(0, 28) + '…' : text;
+  };
+  u.onend = () => {
+    els.nowPlaying.textContent = '就绪';
+  };
+  u.onerror = () => {
+    els.nowPlaying.textContent = '朗读失败';
+  };
+  speechSynthesis.speak(u);
+}
+
+window.speak = speak;
+
+$('btnStop').addEventListener('click', () => {
+  if (typeof speechSynthesis !== 'undefined') speechSynthesis.cancel();
+  els.nowPlaying.textContent = '已停止';
+});
+
+/* ================= PWA ================= */
+
+if ('serviceWorker' in navigator) {
+  const secure = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  if (secure) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    });
+  }
+}
+
+let deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  els.btnInstall.classList.remove('hidden');
+});
+
+els.btnInstall.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  els.btnInstall.classList.add('hidden');
+});
+
+window.addEventListener('appinstalled', () => {
+  els.btnInstall.classList.add('hidden');
+});
+
+/* ================= 启动 ================= */
+
+probeServer().then(() => {
+  renderStatusPanels();
+  // 没引擎时直接把设置打开，别让用户猜
+  if (activeEngine() === 'none') {
+    els.settings.classList.remove('hidden');
+  }
+});
+
+</script>
+<script>
+'use strict';
+
+/* 生词本 UI：视图切换、列表、复习、导出 */
+
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s || '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const say = (t) => window.speak && window.speak(t);
+
+  let viewOpen = false;
+  let reviewQueue = [];
+  let reviewIndex = 0;
+  let reviewShown = false;
+
+  async function refreshBadge() {
+    try {
+      const items = await Vocab.all();
+      const badge = $('vocabBadge');
+      badge.hidden = !items.length;
+      badge.textContent = items.length > 99 ? '99+' : items.length;
+    } catch {
+      /* IndexedDB 不可用时静默 */
+    }
+  }
+
+  async function refresh() {
+    const items = (await Vocab.all()).sort((a, b) => b.addedAt - a.addedAt);
+    const due = items.filter(Vocab.isDue);
+
+    $('vocabStats').textContent = items.length
+      ? `共 ${items.length} 个生词 · 今日待复习 ${due.length} 个`
+      : '生词本还是空的——识别结果里点「＋」收藏单词。';
+
+    $('btnReview').disabled = !due.length;
+    $('btnExport').disabled = !items.length;
+
+    const list = $('vocabList');
+    list.innerHTML = '';
+    items.forEach((it, i) => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.style.animationDelay = Math.min(i, 8) * 0.04 + 's';
+      card.innerHTML =
+        `<div class="body">` +
+        `<div><span class="word">${esc(it.word)}</span>` +
+        (it.phonetic ? `<span class="ph">${esc(it.phonetic)}</span>` : '') +
+        `</div>` +
+        (it.meaning ? `<div class="mean">${esc(it.meaning)}</div>` : '') +
+        `</div>` +
+        `<button class="play" data-say="${esc(it.word)}" title="朗读">▸</button>` +
+        `<button class="del" data-del="${esc(it.word)}" title="删除">✕</button>`;
+      list.appendChild(card);
+    });
+
+    list.querySelectorAll('[data-say]').forEach((b) => b.addEventListener('click', () => say(b.dataset.say)));
+    list.querySelectorAll('[data-del]').forEach((b) =>
+      b.addEventListener('click', async () => {
+        await Vocab.del(b.dataset.del);
+        refresh();
+      })
+    );
+
+    refreshBadge();
+  }
+
+  /* ---------- 复习 ---------- */
+
+  function renderReviewCard() {
+    const area = $('reviewArea');
+    if (reviewIndex >= reviewQueue.length) {
+      area.innerHTML = '';
+      refresh();
+      setStatusText(`本轮复习完成：${reviewQueue.length} 个。`);
+      return;
+    }
+    const it = reviewQueue[reviewIndex];
+    reviewShown = false;
+    area.innerHTML =
+      `<div class="card review-card" style="animation-delay:0s">` +
+      `<div class="body" style="text-align:center;padding:18px 0">` +
+      `<div class="word" style="font-size:24px">${esc(it.word)}</div>` +
+      `<div class="review-back hidden" id="reviewBack">` +
+      (it.phonetic ? `<div class="ph" style="display:block;margin-top:8px">${esc(it.phonetic)}</div>` : '') +
+      (it.meaning ? `<div class="mean" style="margin-top:8px">${esc(it.meaning)}</div>` : '') +
+      `</div>` +
+      `<div style="margin-top:14px"><button class="icon-btn" id="btnFlip">看答案</button></div>` +
+      `</div>` +
+      `<div class="review-btns hidden" id="reviewBtns">` +
+      `<button class="ghost" data-r="0">忘了</button>` +
+      `<button class="ghost solid" data-r="1">认识</button>` +
+      `</div>` +
+      `</div>`;
+
+    $('btnFlip').addEventListener('click', () => {
+      $('reviewBack').classList.remove('hidden');
+      $('reviewBtns').classList.remove('hidden');
+      $('btnFlip').classList.add('hidden');
+      reviewShown = true;
+      say(it.word);
+    });
+    area.querySelectorAll('[data-r]').forEach((b) =>
+      b.addEventListener('click', async () => {
+        await Vocab.review(it.word, b.dataset.r === '1');
+        reviewIndex++;
+        renderReviewCard();
+      })
+    );
+  }
+
+  async function startReview() {
+    const items = await Vocab.all();
+    reviewQueue = items.filter(Vocab.isDue).sort((a, b) => a.box - b.box || a.addedAt - b.addedAt);
+    reviewIndex = 0;
+    if (!reviewQueue.length) {
+      setStatusText('今日没有待复习的生词。');
+      return;
+    }
+    setStatusText(`复习 ${reviewQueue.length} 个：先回忆，再点「看答案」。`);
+    renderReviewCard();
+  }
+
+  function setStatusText(t) {
+    const el = $('status');
+    el.textContent = t || '';
+    el.className = 'status';
+  }
+
+  /* ---------- 事件 ---------- */
+
+  let prevView = 'empty'; // 记住离开生词本时要回到哪个主视图
+
+  function currentMainView() {
+    if (!$('preview').classList.contains('hidden')) return 'preview';
+    if (!$('result').classList.contains('hidden')) return 'result';
+    return 'empty';
+  }
+
+  $('btnVocab').addEventListener('click', async () => {
+    viewOpen = !viewOpen;
+    const views = ['empty', 'preview', 'result', 'settings'];
+    if (viewOpen) {
+      prevView = currentMainView();
+      views.forEach((id) => $(id).classList.add('hidden'));
+      $('vocabView').classList.remove('hidden');
+      await refresh();
+    } else {
+      $('vocabView').classList.add('hidden');
+      views.forEach((id) => $(id).classList.add('hidden'));
+      $(prevView).classList.remove('hidden');
+    }
+  });
+
+  $('btnReview').addEventListener('click', startReview);
+  $('btnExport').addEventListener('click', async () => {
+    const items = await Vocab.all();
+    if (items.length) Vocab.downloadCSV(items);
+  });
+
+  refreshBadge();
+
+  document.addEventListener('vocab-changed', () => {
+    if (viewOpen) refresh();
+    else refreshBadge();
+  });
+})();
+
+</script>
+</body>
+</html>
