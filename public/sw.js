@@ -1,24 +1,16 @@
 'use strict';
 
 /* engscan Service Worker —— 让应用能装到手机主屏、断网也能打开外壳。
- * 策略：
- *   - 页面导航（HTML）→ 网络优先：保证内容永远最新，断网时回落到缓存
- *   - 其它同源静态资源 → stale-while-revalidate：先给缓存，再后台更新
- *   - 接口请求（/api/）与跨域云端 API → 一律直连，绝不缓存
+ *
+ * 策略：同源资源一律「网络优先，缓存兜底」。
+ *   理由：这是个人学习工具，改版频繁；网络优先保证刷新即最新，
+ *         断网时回落到缓存，PWA 的离线打开能力不受影响。
+ * 绝不拦截：本地接口（/api/）与跨域云端 API —— 识别结果必须实时。
  */
 
-const CACHE = 'engscan-v1';
-const SHELL = [
-  './',
-  './index.html',
-  './style.css',
-  './app.js',
-  './vocab.js',
-  './vocab-ui.js',
-  './manifest.webmanifest',
-  './icon-192.png',
-  './icon-512.png',
-];
+const CACHE = 'engscan-v2';
+// 只预缓存外壳；具体 js/css 由 stamp 脚本加内容哈希，按实际请求缓存
+const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
@@ -55,35 +47,17 @@ self.addEventListener('fetch', (e) => {
 
   const isDocument = req.mode === 'navigate' || (req.headers.get('accept') || '').indexOf('text/html') !== -1;
 
-  if (isDocument) {
-    // 网络优先：改完代码刷新就能看到新的，断网时用缓存兜底
-    e.respondWith(
-      fetch(req)
-        .then((res) => {
-          if (res && res.ok) {
-            const copy = res.clone();
-            caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
-          }
-          return res;
-        })
-        .catch(() => caches.match(req).then((hit) => hit || caches.match('./index.html')))
-    );
-    return;
-  }
-
   e.respondWith(
-    caches.match(req).then((hit) => {
-      const net = fetch(req)
-        .then((res) => {
-          if (res && res.ok && res.type === 'basic') {
-            const copy = res.clone();
-            caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
-          }
-          return res;
-        })
-        .catch(() => hit);
-
-      return hit || net;
-    })
+    fetch(req)
+      .then((res) => {
+        if (res && res.ok && res.type === 'basic') {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
+        }
+        return res;
+      })
+      .catch(() =>
+        caches.match(req).then((hit) => hit || (isDocument ? caches.match('./index.html') : undefined))
+      )
   );
 });

@@ -13,9 +13,11 @@ const safe = (js) => js.replace(/<\/script/gi, '<\\/script');
 
 let html = read('index.html');
 
+const V = '(?:\\?v=[a-f0-9]+)?'; // stamp.js 盖的内容哈希，打包时忽略
+
 // 1. 内联样式
 html = html.replace(
-  /<link rel="stylesheet" href="\.\/style\.css">/,
+  new RegExp(`<link rel="stylesheet" href="\\./style\\.css${V}">`),
   () => '<style>\n' + read('style.css') + '\n</style>'
 );
 
@@ -29,12 +31,16 @@ html = html.replace(
   () => '<link rel="apple-touch-icon" href="data:image/png;base64,' + b64('apple-touch-icon.png') + '">'
 );
 
-// 3. 单文件模式下没有 manifest / sw（file:// 不支持），摘掉引用并禁用注册
+// 3. 单文件模式下没有 manifest / sw（file:// 不支持），摘掉引用
 html = html.replace(/<link rel="manifest" href="\.\/manifest\.webmanifest">\n?/, '');
 
 // 4. 内联三个脚本
 html = html.replace(
-  /<script src="\.\/vocab\.js"><\/script>\s*<script src="\.\/app\.js"><\/script>\s*<script src="\.\/vocab-ui\.js"><\/script>/,
+  new RegExp(
+    `<script src="\\./vocab\\.js${V}"></script>\\s*` +
+      `<script src="\\./app\\.js${V}"></script>\\s*` +
+      `<script src="\\./vocab-ui\\.js${V}"></script>`
+  ),
   () =>
     '<script>\n' + safe(read('vocab.js')) + '\n</script>\n' +
     '<script>\n' + safe(read('app.js')) + '\n</script>\n' +

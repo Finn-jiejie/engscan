@@ -38,13 +38,17 @@
 
 内置了常用服务商预设，选一下自动填好地址：
 
-| 服务商 | 接口地址 |
-|---|---|
-| 阿里百炼 · 通用 | `https://dashscope.aliyuncs.com/compatible-mode/v1` |
-| 阿里 Token Plan · 北京 | `https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1` |
-| 阿里 Token Plan · 新加坡 | `https://token-plan.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1` |
-| 小米 MiMo · 官方 | `https://api.xiaomimimo.com/v1` |
-| 小米 Token Plan · 国内 / 新加坡 | `https://token-plan-cn.xiaomimimo.com/v1` 等 |
+| 服务商 | 接口地址 | 网页直连 |
+|---|---|---|
+| 阿里百炼 · 通用 | `https://dashscope.aliyuncs.com/compatible-mode/v1` | ✅ |
+| 小米 MiMo · 官方 | `https://api.xiaomimimo.com/v1` | ✅ |
+| 小米 Token Plan · 国内 | `https://token-plan-cn.xiaomimimo.com/v1` | ✅ |
+| 小米 Token Plan · 新加坡 | `https://token-plan-sgp.xiaomimimo.com/v1` | ✅ |
+| 阿里 Token Plan · 北京 | `https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1` | ❌ |
+| 阿里 Token Plan · 新加坡 | `https://token-plan.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1` | ❌ |
+
+> **关于两个「阿里 Token Plan」标 ❌**：实测它们在 CORS 预检阶段就要求认证（返回 `401 No API-key provided`，且不带跨域头），浏览器会直接拦掉，**网页里填 Key 也没用**。这是网关策略，不是本项目的限制。
+> 想用它们只能走「电脑开着 + 本地服务转发」那条路（页面里把识别引擎切到本地即可）。手机上用请选前四个。
 
 **Key 只说一遍：** 只存在你这台设备的浏览器里（localStorage），直接发给服务商，不经过任何第三方服务器，也不会写进代码仓库。手机和电脑的配置**互不同步**，各填一次。
 
@@ -117,11 +121,13 @@ public/
   icon-*.png          PWA 图标
 tools/
   publish.sh          一键发布到 GitHub Pages
+  stamp.js            发布前盖章：给 js/css 加内容哈希，绕开 CDN 缓存
   make-icons.py       重新生成图标
   make-standalone.js  打包成单文件 HTML
   pwa-check.js        CDP 自动检测 PWA 能力
   file-check.js       检测单文件版在 file:// 下的表现
   cloud-e2e.js        云端直连端到端测试
+  provider-hint-check.js  服务商切换提示测试
   local-translate-check.js  本地模式 + 翻译 + 生词本联动测试
   mock-api.js         本地假 API（仅供测试）
 .env                  服务端配置（不进版本库）
