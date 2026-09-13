@@ -1,5 +1,12 @@
 # 部署到 Cloudflare Pages（私人仓库 + 免费 HTTPS）
 
+> **⭐ 状态更新（2026-09-13）：已改用 GitHub Pages 上线，本文档转为备选方案。**
+> - ✅ 已上线：**https://finn-jiejie.github.io/engscan/**（仓库已转 public，Pages 已开启）
+> - ✅ 日常更新：`bash tools/push.sh "说明"` —— 源码 + 线上页面一条命令全更新，无需任何手动步骤
+> - 本文的 Cloudflare 方案仅在想要独立域名（`*.pages.dev`）或私有仓库托管时再启用
+>
+> ---
+>
 > 目标：手机扫开一个 HTTPS 链接就能用，源码留在私人仓库不外泄。
 > 前提状态：**已完成** —— 代码已推到私人仓库 `https://github.com/Finn-jiejie/engscan`（分支 `main`）。
 > 你要做的：在浏览器里点几下把它接到 Cloudflare。
