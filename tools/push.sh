@@ -79,7 +79,30 @@ env -u http_proxy -u https_proxy -u HTTP_PROXY -u HTTPS_PROXY -u ALL_PROXY \
   git -c credential.helper= -c credential.helper='!gh auth git-credential' \
   push origin "$BRANCH"
 
+# ---------- 部署静态站到 gh-pages（GitHub Pages 线上地址的更新源） ----------
+echo
+echo "==> 部署静态站 → gh-pages 分支"
+REMOTE_URL="$(git remote get-url origin)"
+WT="$(mktemp -d)"
+cp -r "$ROOT/public"/. "$WT/"
+touch "$WT/.nojekyll"
+if (
+  cd "$WT" \
+  && git init -q -b gh-pages \
+  && git add -A \
+  && git -c user.name="$(git config user.name)" \
+         -c user.email="$(git config user.email)" \
+       commit -q -m "deploy: $(date '+%Y-%m-%d %H:%M:%S')" \
+  && env -u http_proxy -u https_proxy -u HTTP_PROXY -u HTTPS_PROXY -u ALL_PROXY \
+       GIT_SSL_NO_VERIFY=1 \
+       git -c credential.helper= -c credential.helper='!gh auth git-credential' \
+       push -q -f "$REMOTE_URL" gh-pages:gh-pages
+); then
+  echo "    gh-pages 已更新，https://finn-jiejie.github.io/engscan/ 约 1 分钟生效"
+else
+  echo "[!] gh-pages 部署失败（源码已推上去，仓库没受影响；可重跑本脚本）"
+fi
+
 echo
 echo "==> 推送完成"
-echo "    Cloudflare Pages 会自动检测到新提交并重新部署（约 1 分钟）"
 git log --oneline -1
