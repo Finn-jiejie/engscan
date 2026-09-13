@@ -1,16 +1,28 @@
-# 密钥与本地配置（永不提交）
+# ===== 密钥与本地配置（永不提交，连模板 .env.example 也不上）=====
 .env
-.env.local
-.env.*.local
+.env.*
+*.env
 
-# 依赖
+# ===== 数据隔离：任何用户数据/词库/导出/备份不入库 =====
+*.csv
+*.tsv
+*.db
+*.sqlite
+*.sqlite3
+data/
+exports/
+backups/
+backup/
+vocab-export*
+
+# ===== 依赖 =====
 node_modules/
 
-# 系统与日志
+# ===== 系统与日志 =====
 .DS_Store
 Thumbs.db
 *.log
 
-# 编辑器
+# ===== 编辑器 =====
 .vscode/
 .idea/
