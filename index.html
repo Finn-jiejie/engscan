@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<meta name="theme-color" content="#f7f6f2">
+<meta name="description" content="拍纸质书页，识别重点单词与例句，点一下就能听。">
+<title>拍照点读</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="拍照点读">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="./style.css?v=cac0bd65">
+</head>
+<body>
+
+<header>
+  <h1>拍照点读</h1>
+  <div class="header-btns">
+    <button class="icon-btn accent hidden" id="btnInstall">安装</button>
+    <button class="icon-btn" id="btnVocab">生词本<span class="badge" id="vocabBadge" hidden></span></button>
+    <button class="icon-btn" id="btnSettings">设置</button>
+  </div>
+</header>
+
+<main>
+  <section class="panel hidden" id="settings">
+    <div class="row">
+      <label for="rate">朗读语速</label>
+      <input type="range" id="rate" min="0.5" max="1.5" step="0.05" value="0.85">
+      <span class="val" id="rateVal">0.85x</span>
+    </div>
+    <div class="row">
+      <label for="accent">发音口音</label>
+      <select id="accent">
+        <option value="en-US">美音 en-US</option>
+        <option value="en-GB">英音 en-GB</option>
+        <option value="en-AU">澳音 en-AU</option>
+      </select>
+    </div>
+    <div class="row">
+      <label for="engine">识别引擎</label>
+      <select id="engine">
+        <option value="auto">自动（推荐）</option>
+        <option value="local">本地 OCR · 免费</option>
+        <option value="cloud">云端 · 手机可用</option>
+      </select>
+    </div>
+    <div class="row">
+      <label for="showZh">显示例句翻译</label>
+      <input type="checkbox" id="showZh" class="check">
+    </div>
+
+    <div class="meta" id="srvMeta">读取中…</div>
+
+    <div class="sub-block">
+      <h2 class="sub">云端 API <span class="sub-note">手机直连，不用开电脑</span></h2>
+
+      <div class="field">
+        <label for="provider">服务商</label>
+        <select id="provider"></select>
+      </div>
+      <div class="field">
+        <label for="baseUrl">接口地址</label>
+        <input id="baseUrl" type="url" spellcheck="false" autocomplete="off" placeholder="https://…/v1">
+      </div>
+      <div class="field">
+        <label for="model">模型 <span class="hint">需支持图片输入</span></label>
+        <input id="model" type="text" spellcheck="false" autocomplete="off" placeholder="qwen3.6-flash">
+      </div>
+      <div class="field">
+        <label for="apiKey">API Key</label>
+        <input id="apiKey" type="password" spellcheck="false" autocomplete="off" placeholder="sk-…">
+      </div>
+
+      <div class="actions">
+        <button class="ghost" id="btnSaveKey">保存</button>
+        <button class="ghost solid" id="btnTestKey">测试连接</button>
+      </div>
+      <div class="meta" id="keyMeta">
+        Key 只存在这台设备的浏览器里（localStorage），不会上传到任何服务器，也不会进代码仓库。
+      </div>
+    </div>
+  </section>
+
+  <section id="empty">
+    <p>拍下书页，自动识别重点单词与例句，点一下就能听。</p>
+    <button class="primary" id="btnShoot">拍照识别</button>
+    <div class="meta center" id="engineHint"></div>
+  </section>
+
+  <section id="preview" class="hidden">
+    <img id="photo" alt="书页预览">
+    <div class="actions">
+      <button class="ghost" id="btnRetake">重拍</button>
+      <button class="ghost solid" id="btnScan">开始识别</button>
+    </div>
+  </section>
+
+  <section id="result" class="hidden">
+    <div class="block" id="blockWords">
+      <h2>重点单词</h2>
+      <div id="words"></div>
+    </div>
+    <div class="block" id="blockSent">
+      <h2>例句</h2>
+      <div id="sentences"></div>
+    </div>
+  </section>
+
+  <div class="status" id="status"></div>
+
+  <section id="vocabView" class="hidden">
+    <div class="panel">
+      <div class="row" style="border-top:none">
+        <label id="vocabStats">读取中…</label>
+      </div>
+      <div class="actions" style="margin-top:10px">
+        <button class="ghost" id="btnExport">导出 CSV (Anki)</button>
+        <button class="ghost solid" id="btnReview">开始复习</button>
+      </div>
+    </div>
+    <div id="reviewArea"></div>
+    <div class="block">
+      <h2>全部生词</h2>
+      <div id="vocabList"></div>
+    </div>
+  </section>
+</main>
+
+<div class="bar">
+  <button class="icon-btn" id="btnStop">停止</button>
+  <span id="nowPlaying">就绪</span>
+  <span class="spacer"></span>
+</div>
+
+<input type="file" id="file" accept="image/*" capture="environment" hidden>
+
+<script src="./vocab.js?v=214fae9f"></script>
+<script src="./app.js?v=632d2749"></script>
+<script src="./vocab-ui.js?v=1fa4d6f9"></script>
+</body>
+</html>
