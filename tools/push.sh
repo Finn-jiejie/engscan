@@ -43,15 +43,23 @@ if ! git remote get-url origin >/dev/null 2>&1; then
   exit 1
 fi
 
-# ---------- 安全闸：绝不提交密钥 ----------
-TRACKED_ENV="$(git ls-files | grep -E '(^|/)\.env($|\.)' | grep -v '\.env\.example$' || true)"
+# ---------- 安全闸：绝不提交密钥（任何 .env 开头的文件，含模板，一律拦截） ----------
+TRACKED_ENV="$(git ls-files | grep -E '(^|/)\.env' || true)"
 if [ -n "$TRACKED_ENV" ]; then
-  echo "[X] 检测到密钥文件已被 git 跟踪，已中止推送："
+  echo "[X] 检测到密钥类文件已被 git 跟踪，已中止推送："
   echo "$TRACKED_ENV" | sed 's/^/      /'
-  echo "    修复： git rm --cached <文件>  然后确认 .gitignore 含 .env"
+  echo "    修复： git rm --cached <文件>  （.gitignore 已排除所有 .env*）"
   exit 1
 fi
-echo "==> 密钥自检通过（.env 未入库）"
+# 数据隔离闸：词库/导出/数据库类文件不入库
+TRACKED_DATA="$(git ls-files | grep -iE '\.(csv|tsv|db|sqlite3?)$|^data/|^exports/|^backups?/' || true)"
+if [ -n "$TRACKED_DATA" ]; then
+  echo "[X] 检测到数据类文件已被 git 跟踪，已中止推送："
+  echo "$TRACKED_DATA" | sed 's/^/      /'
+  echo "    修复： git rm --cached <文件>  （.gitignore 已排除数据文件）"
+  exit 1
+fi
+echo "==> 安全自检通过（无密钥文件、无数据文件入库）"
 
 # ---------- 提交 ----------
 echo "==> 提交改动"
